@@ -35,6 +35,13 @@ class SqliteDatabaseAdapter
     extends DatabaseAdapter<BetterSqlite3Database>
     implements IDatabaseCacheAdapter
 {
+    protected db: BetterSqlite3Database;
+
+    constructor(db: BetterSqlite3Database) {
+        super();
+        this.db = db;
+    }
+
     async getRoom(roomId: UUID): Promise<UUID | null> {
         const sql = "SELECT id FROM rooms WHERE id = ?";
         const room = this.db.prepare(sql).get(roomId) as
@@ -81,12 +88,6 @@ class SqliteDatabaseAdapter
             "UPDATE participants SET userState = ? WHERE roomId = ? AND userId = ?"
         );
         stmt.run(state, roomId, userId);
-    }
-
-    constructor(db: BetterSqlite3Database) {
-        super();
-        this.db = db;
-        load(db);
     }
 
     async init() {

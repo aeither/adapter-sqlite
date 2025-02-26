@@ -158,10 +158,10 @@ import {
 import { v4 } from "uuid";
 import Database from "better-sqlite3";
 var SqliteDatabaseAdapter = class extends DatabaseAdapter {
-  db;
   constructor(db) {
     super();
     this.db = db;
+    load2(db);
   }
   async getRoom(roomId) {
     const sql = "SELECT id FROM rooms WHERE id = ?";

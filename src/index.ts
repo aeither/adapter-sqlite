@@ -35,11 +35,10 @@ class SqliteDatabaseAdapter
     extends DatabaseAdapter<BetterSqlite3Database>
     implements IDatabaseCacheAdapter
 {
-    protected db: BetterSqlite3Database;
-
     constructor(db: BetterSqlite3Database) {
         super();
         this.db = db;
+        load(db);
     }
 
     async getRoom(roomId: UUID): Promise<UUID | null> {
